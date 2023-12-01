@@ -43,6 +43,8 @@ import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.source.SourceRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -61,6 +63,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 public final class RowDataDebeziumDeserializeSchema
         implements DebeziumDeserializationSchema<RowData> {
     private static final long serialVersionUID = 2L;
+    private static final Logger LOG =
+            LoggerFactory.getLogger(RowDataDebeziumDeserializeSchema.class);
 
     /** Custom validator to validate the row value. */
     public interface ValueValidator extends Serializable {
@@ -260,6 +264,7 @@ public final class RowDataDebeziumDeserializeSchema
             LogicalType type,
             ZoneId serverTimeZone,
             DeserializationRuntimeConverterFactory userDefinedConverterFactory) {
+        LOG.info("代码走到了DeserializationRuntimeConverter");
         // user defined converter has a higher resolve order
         Optional<DeserializationRuntimeConverter> converter =
                 userDefinedConverterFactory.createUserDefinedConverter(type, serverTimeZone);
@@ -360,6 +365,7 @@ public final class RowDataDebeziumDeserializeSchema
     }
 
     private static DeserializationRuntimeConverter convertToInt() {
+        LOG.info("代码走到了 convertToInt");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;
@@ -414,6 +420,7 @@ public final class RowDataDebeziumDeserializeSchema
     }
 
     private static DeserializationRuntimeConverter convertToFloat() {
+        LOG.info("代码走到了convertToFloat");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;
@@ -432,6 +439,7 @@ public final class RowDataDebeziumDeserializeSchema
     }
 
     private static DeserializationRuntimeConverter convertToDate() {
+        LOG.info("代码走到了convertToDate");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;
@@ -444,6 +452,7 @@ public final class RowDataDebeziumDeserializeSchema
     }
 
     private static DeserializationRuntimeConverter convertToTime() {
+        LOG.info("代码走到了convertToTime");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;
@@ -467,6 +476,7 @@ public final class RowDataDebeziumDeserializeSchema
     }
 
     private static DeserializationRuntimeConverter convertToTimestamp(ZoneId serverTimeZone) {
+        LOG.info("代码走到了convertToTimestamp");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;
@@ -496,6 +506,7 @@ public final class RowDataDebeziumDeserializeSchema
 
     private static DeserializationRuntimeConverter convertToLocalTimeZoneTimestamp(
             ZoneId serverTimeZone) {
+        LOG.info("代码走到了 convertToLocalTimeZoneTimestamp");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;
@@ -519,6 +530,7 @@ public final class RowDataDebeziumDeserializeSchema
     }
 
     private static DeserializationRuntimeConverter convertToString() {
+        LOG.info("代码走到了 convertToString");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;
@@ -531,6 +543,7 @@ public final class RowDataDebeziumDeserializeSchema
     }
 
     private static DeserializationRuntimeConverter convertToBinary() {
+        LOG.info("代码走到了 convertToBinary");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;
@@ -553,6 +566,7 @@ public final class RowDataDebeziumDeserializeSchema
     }
 
     private static DeserializationRuntimeConverter createDecimalConverter(DecimalType decimalType) {
+        LOG.info("代码走到了 createDecimalConverter");
         final int precision = decimalType.getPrecision();
         final int scale = decimalType.getScale();
         return new DeserializationRuntimeConverter() {
