@@ -61,5 +61,10 @@ under the License.
             <artifactId>mssql-jdbc</artifactId>
             <version>9.4.1.jre8</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-annotations</artifactId>
+            <version>1.16.2</version>
+        </dependency>
     </dependencies>
 </project>
