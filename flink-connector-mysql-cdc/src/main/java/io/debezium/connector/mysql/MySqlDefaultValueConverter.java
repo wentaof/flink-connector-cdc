@@ -120,6 +120,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
      */
     @Override
     public Optional<Object> parseDefaultValue(Column column, String defaultValueExpression) {
+        LOGGER.info("走 parseDefaultValue");
         Object logicalDefaultValue = convert(column, defaultValueExpression);
         if (logicalDefaultValue == null) {
             return Optional.empty();
@@ -149,6 +150,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
      * @return value converted to a Java type
      */
     public Object convert(Column column, String value) {
+        LOGGER.info("走 convert");
         if (value == null) {
             return value;
         }
@@ -206,6 +208,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
      * @return the converted value;
      */
     private Object convertToLocalDate(Column column, String value) {
+        LOGGER.info("走 convertToLocalDate");
         final boolean zero =
                 EPOCH_EQUIVALENT_DATE.matcher(value).matches()
                         || EPOCH_EQUIVALENT_TIMESTAMP.matcher(value).matches()
@@ -244,6 +247,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
      * @return the converted value;
      */
     private Object convertToLocalDateTime(Column column, String value) {
+        LOGGER.info("走 convertToLocalDateTime");
         final boolean matches =
                 EPOCH_EQUIVALENT_TIMESTAMP.matcher(value).matches() || "0".equals(value);
         if (matches) {
@@ -280,6 +284,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
      * @return the converted value;
      */
     private Object convertToTimestamp(Column column, String value) {
+        LOGGER.info("走 convertToTimestamp");
         final boolean matches =
                 EPOCH_EQUIVALENT_TIMESTAMP.matcher(value).matches()
                         || "0".equals(value)
@@ -382,6 +387,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
     }
 
     private DateTimeFormatter timestampFormat(int length) {
+        LOGGER.info("走 timestampFormat");
         final DateTimeFormatterBuilder dtf =
                 new DateTimeFormatterBuilder()
                         .appendPattern("yyyy-MM-dd")
@@ -405,6 +411,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
      * @return cleaned timestamp
      */
     private String cleanTimestamp(String s) {
+        LOGGER.info("走 cleanTimestamp");
         if (s == null) {
             throw new java.lang.IllegalArgumentException("null string");
         }
@@ -512,6 +519,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
      * @return
      */
     private String replaceFirstNonNumericSubstring(String s, int startIndex, char c) {
+        LOGGER.info("走 replaceFirstNonNumericSubstring");
         StringBuilder sb = new StringBuilder();
         sb.append(s.substring(0, startIndex));
 
@@ -521,6 +529,7 @@ public class MySqlDefaultValueConverter implements DefaultValueConverter {
     }
 
     private String stripCharacterSetIntroducer(String value) {
+        LOGGER.info("走 stripCharacterSetIntroducer");
         final Matcher matcher = CHARSET_INTRODUCER_PATTERN.matcher(value);
         return !matcher.matches() ? value : matcher.group(1);
     }

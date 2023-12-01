@@ -107,6 +107,7 @@ public final class RowDataDebeziumDeserializeSchema
             ZoneId serverTimeZone,
             DeserializationRuntimeConverterFactory userDefinedConverterFactory,
             DebeziumChangelogMode changelogMode) {
+        LOG.info("走到了 RowDataDebeziumDeserializeSchema");
         this.hasMetadata = checkNotNull(metadataConverters).length > 0;
         this.appendMetadataCollector = new AppendMetadataCollector(metadataConverters);
         this.physicalConverter =
@@ -229,6 +230,7 @@ public final class RowDataDebeziumDeserializeSchema
         }
 
         public RowDataDebeziumDeserializeSchema build() {
+            LOG.info("走到了 RowDataDebeziumDeserializeSchema");
             return new RowDataDebeziumDeserializeSchema(
                     physicalRowType,
                     metadataConverters,
@@ -249,6 +251,7 @@ public final class RowDataDebeziumDeserializeSchema
             LogicalType type,
             ZoneId serverTimeZone,
             DeserializationRuntimeConverterFactory userDefinedConverterFactory) {
+        LOG.info("走到了 createConverter");
         return wrapIntoNullableConverter(
                 createNotNullConverter(type, serverTimeZone, userDefinedConverterFactory));
     }
@@ -264,7 +267,7 @@ public final class RowDataDebeziumDeserializeSchema
             LogicalType type,
             ZoneId serverTimeZone,
             DeserializationRuntimeConverterFactory userDefinedConverterFactory) {
-        LOG.info("代码走到了DeserializationRuntimeConverter");
+        LOG.info("代码走到了 createNotNullConverter");
         // user defined converter has a higher resolve order
         Optional<DeserializationRuntimeConverter> converter =
                 userDefinedConverterFactory.createUserDefinedConverter(type, serverTimeZone);
@@ -604,6 +607,7 @@ public final class RowDataDebeziumDeserializeSchema
             RowType rowType,
             ZoneId serverTimeZone,
             DeserializationRuntimeConverterFactory userDefinedConverterFactory) {
+        LOG.info("走到了 createRowConverter");
         final DeserializationRuntimeConverter[] fieldConverters =
                 rowType.getFields().stream()
                         .map(RowType.RowField::getType)
@@ -655,6 +659,8 @@ public final class RowDataDebeziumDeserializeSchema
 
     private static DeserializationRuntimeConverter wrapIntoNullableConverter(
             DeserializationRuntimeConverter converter) {
+
+        LOG.info("走到了 wrapIntoNullableConverter");
         return new DeserializationRuntimeConverter() {
 
             private static final long serialVersionUID = 1L;

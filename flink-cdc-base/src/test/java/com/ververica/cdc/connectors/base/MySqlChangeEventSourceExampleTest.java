@@ -71,7 +71,7 @@ public class MySqlChangeEventSourceExampleTest {
             LoggerFactory.getLogger(MySqlChangeEventSourceExampleTest.class);
 
     private static final int DEFAULT_PARALLELISM = 4;
-    private static final MySqlContainer MYSQL_CONTAINER = createMySqlContainer(MySqlVersion.V5_7);
+    private static final MySqlContainer MYSQL_CONTAINER = createMySqlContainer(MySqlVersion.V8_0);
 
     @Rule
     public final MiniClusterWithClientResource miniClusterResource =
